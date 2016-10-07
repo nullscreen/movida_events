@@ -1,6 +1,6 @@
 # MovidaEvents
 
-Watches the movida event stream and calls your code for each event.
+A BeBanjo Movida event stream processor
 
 ## Installation
 
@@ -43,7 +43,8 @@ end
 
 ### Filtering event types
 
-You can limit the types of events by setting the `event_types` option.
+You can limit the types of events by setting the `event_types` option. See
+the [event type documentation][event-types] for a list of available types.
 
 ```ruby
 types = ['title_created', 'title_updated']
@@ -54,6 +55,8 @@ end
 
 The `event_types` option also accepts a comma separated string like
 `"title_created,title_updated"`.
+
+[event-types]: https://github.com/bebanjo/almodovar/wiki/Movida-Events-Feed#event-type-event-type
 
 ### The poll interval
 

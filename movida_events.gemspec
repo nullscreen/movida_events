@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Justin Howard']
   spec.email = ['jmhoward0@gmail.com']
 
-  spec.summary = 'Description goes here'
+  spec.summary = 'A BeBanjo Movida event stream processor'
   spec.homepage = 'https://bitbucket.com/machinima-dev/movida_events'
 
   spec.files = `git ls-files -z`

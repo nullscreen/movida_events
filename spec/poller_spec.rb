@@ -136,7 +136,7 @@ RSpec.describe MovidaEvents::Poller do
     expect(all_stats[2].request_events).to eq(1)
   end
 
-  it 'calls before_poll before each request' do
+  it 'calls on_poll before each request' do
     expect(client).to receive(:events) do |_opts, &block|
       block.call(OpenStruct.new(id: 100))
     end.ordered
@@ -149,7 +149,7 @@ RSpec.describe MovidaEvents::Poller do
     expect(client).to receive(:events).ordered
 
     all_stats = []
-    poller.before_poll do |stats|
+    poller.on_poll do |stats|
       all_stats << stats
     end
 

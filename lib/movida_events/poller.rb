@@ -7,8 +7,8 @@ module MovidaEvents
       @options = default_options.merge(options)
     end
 
-    def before_poll(&block)
-      @before_poll = block
+    def on_poll(&block)
+      @on_poll = block
     end
 
     def poll(times = nil)
@@ -43,7 +43,7 @@ module MovidaEvents
 
     def before_request(stats)
       stats.start_request
-      @before_poll.call(stats.clone) if @before_poll
+      @on_poll.call(stats.clone) if @on_poll
     end
 
     def initial_stats

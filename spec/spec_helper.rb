@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require 'webmock/rspec'
+
 require 'simplecov'
 SimpleCov.start if ENV['COVERAGE']
+
+require 'movida_events'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

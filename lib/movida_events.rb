@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
+require 'almodovar'
 require 'movida_events/version'
-
-module MovidaEvents
-end
+require 'movida_events/client'
+require 'movida_events/poller'
+require 'movida_events/stats'

@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# A BeBanjo Movida event stream processor
+module MovidaEvents
+end
+
 require 'almodovar'
 require 'movida_events/version'
 require 'movida_events/client'

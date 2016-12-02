@@ -2,8 +2,10 @@
 
 require 'webmock/rspec'
 
-require 'simplecov'
-SimpleCov.start if ENV['COVERAGE']
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'movida_events'
 

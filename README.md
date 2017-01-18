@@ -7,7 +7,7 @@ A BeBanjo Movida event stream processor
 Add this line to your application's `Gemfile`. Substitute the current tag name.
 
 ```ruby
-gem 'movida_events', git: 'git@bitbucket.org:machinima-dev/movida-events.git', tag: '0.1.0'
+gem 'movida_events', git: 'git@bitbucket.org:machinima-dev/movida-events.git', tag: 'v0.1.0'
 ```
 
 ## Usage

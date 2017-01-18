@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe MovidaEvents::Poller do
   let(:client) do
     instance_double(MovidaEvents::Client)

@@ -158,4 +158,20 @@ RSpec.describe MovidaEvents::Poller do
 
     expect(all_stats.map(&:last)).to eq([5555, 100, 300])
   end
+
+  it 'stops after processing events if stopped' do
+    expect(client).to receive(:events) do |_opts, &block|
+      block.call(OpenStruct.new(id: 100))
+      block.call(OpenStruct.new(id: 200))
+    end
+
+    events = []
+    poller.on_poll { poller.stop }
+    poller.poll do |event|
+      expect(poller.stopped).to eq(true)
+      events << event
+    end
+
+    expect(events.size).to eq(2)
+  end
 end

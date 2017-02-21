@@ -106,6 +106,20 @@ poller.poll do |event, stats|
 end
 ```
 
+### Stopping the poller
+
+Use the `stop` method on the poller to manually stop polling for events. When
+`stop` is called, the poller will finish processing the current request
+including the associated events. Then it will exit the poll loop.
+
+```ruby
+trap('INT') { poller.stop }
+poller.poll do |event, stats|
+  # If the poller is interrupted in the middle of an event, it will finish
+  # processing before stopping
+  log('Processing event')
+end
+
 ### Setting the number of times to poll
 
 The `poll` method accepts an argument `times` that sets how many times it checks

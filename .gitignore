@@ -5,3 +5,4 @@
 /doc/
 /.yardoc/
 .byebug_history
+.ruby-version

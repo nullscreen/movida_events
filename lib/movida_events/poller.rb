@@ -3,6 +3,12 @@
 module MovidaEvents
   # Polls for events and calls a method for each one
   class Poller
+    # Indicates if the stop method has been called.
+    #
+    # @see #stop
+    # @return [Boolean] True if the poller is stopped
+    attr_reader :stopped
+
     # Create a new `MovidaEvents::Poller` object
     #
     # @param client [Client] The client for making API requests
@@ -14,6 +20,7 @@ module MovidaEvents
     def initialize(client, options = {})
       @client = client
       @options = default_options.merge(options)
+      @stopped = false
     end
 
     # Set a callback to run whenever an API request is made
@@ -42,8 +49,17 @@ module MovidaEvents
           stats.receive_event(event)
           yield event, stats.clone if block_given?
         end
+        break if @stopped
         sleep @options[:interval] if stats.request_events.zero?
       end
+    end
+
+    # Stop the poller
+    #
+    # When this is called, the poller will finish processing the current request
+    # and any associated events before stopping.
+    def stop
+      @stopped = true
     end
 
     private

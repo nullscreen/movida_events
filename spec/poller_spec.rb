@@ -53,7 +53,7 @@ RSpec.describe MovidaEvents::Poller do
   end
 
   it 'can set the allowed event types with an array' do
-    options[:event_types] = %w(title_created title_updated)
+    options[:event_types] = %w[title_created title_updated]
 
     expect(client).to receive(:events)
       .with(hash_including(event_type: 'title_created,title_updated'))
@@ -175,3 +175,4 @@ RSpec.describe MovidaEvents::Poller do
     expect(events.size).to eq(2)
   end
 end
+# rubocop:enable Metrics/BlockLength

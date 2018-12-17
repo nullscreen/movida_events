@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+tag="$(git describe --abbrev=0)"
+tag="${tag#v}"
+gt=$(ruby -r ./lib/movida_events/version -e "puts Gem::Version.new(MovidaEvents::VERSION) >= Gem::Version.new('${tag}')")
+test "$gt" = true

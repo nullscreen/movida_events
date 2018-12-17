@@ -1,13 +1,26 @@
 # MovidaEvents
 
+[![Gem Version](https://badge.fury.io/rb/movida_events.svg)](https://badge.fury.io/rb/movida_events)
+[![Build Status](https://travis-ci.org/machinima/movida_events.svg?branch=master)](https://travis-ci.org/machinima/movida_events)
+[![Code Climate](https://codeclimate.com/github/machinima/movida_events/badges/gpa.svg)](https://codeclimate.com/github/machinima/movida_events)
+[![Test Coverage](https://codeclimate.com/github/machinima/movida_events/badges/coverage.svg)](https://codeclimate.com/github/machinima/movida_events)
+[![Inline docs](http://inch-ci.org/github/machinima/movida_events.svg?branch=master)](http://inch-ci.org/github/machinima/movida_events)
+
 A BeBanjo Movida event stream processor
+
+## Documentation
+
+Read below to get started, or see the [API Documentation][api-docs] for more
+details.
+
+[api-docs]: https://www.rubydoc.info/github/machinima/movida_events
 
 ## Installation
 
-Add this line to your application's `Gemfile`. Substitute the current tag name.
+Add this line to your application's Gemfile:
 
 ```ruby
-gem 'movida_events', git: 'git@bitbucket.org:machinima-dev/movida-events.git', tag: 'v0.1.0'
+gem 'movida_events'
 ```
 
 ## Usage
@@ -150,3 +163,19 @@ You can run `bin/console` for an interactive prompt that will allow you to
 experiment.
 
 Before committing, run `bin/rake` to run the linter and tests.
+
+## License
+
+Copyright 2018 Warner Bros. Entertainment Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

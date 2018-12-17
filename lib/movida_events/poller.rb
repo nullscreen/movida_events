@@ -50,6 +50,7 @@ module MovidaEvents
           yield event, stats.clone if block_given?
         end
         break if @stopped
+
         sleep @options[:interval] if stats.request_events.zero?
       end
     end
@@ -101,7 +102,7 @@ module MovidaEvents
     # @param stats [Stats] The current stats
     def before_request(stats)
       stats.start_request
-      @on_poll.call(stats.clone) if @on_poll
+      @on_poll&.call(stats.clone)
     end
 
     # Sets up the initial stats state before polling

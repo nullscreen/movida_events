@@ -17,6 +17,7 @@ before_script:
 script:
   - bin/rubocop
   - bin/rspec --format doc
+  - bin/check-version
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
@@ -33,5 +34,4 @@ jobs:
         gem: movida_events
         on:
           tags: true
-          condition: bin/check-version
-      repo: machinima/movida_events
+          repo: machinima/movida_events

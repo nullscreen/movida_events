@@ -9,10 +9,10 @@ Gem::Specification.new do |spec|
   spec.version = MovidaEvents::VERSION
   spec.authors = ['Justin Howard']
   spec.email = ['jmhoward0@gmail.com']
-  spec.license = 'Apache-2.0'
+  spec.license = 'MIT'
 
   spec.summary = 'A BeBanjo Movida event stream processor'
-  spec.homepage = 'https://github.com/machinima/movida_events'
+  spec.homepage = 'https://github.com/nullscreen/movida_events'
 
   spec.files = `git ls-files -z`
     .split("\x0")

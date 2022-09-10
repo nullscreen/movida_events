@@ -1,10 +1,20 @@
 # frozen_string_literal: true
 
+require 'byebug' if Gem.loaded_specs['byebug']
 require 'webmock/rspec'
 
-if ENV['COVERAGE']
+if Gem.loaded_specs['simplecov'] && (ENV.fetch('COVERAGE', nil) || ENV.fetch('CI', nil))
   require 'simplecov'
-  SimpleCov.start
+  if ENV['CI']
+    require 'simplecov-cobertura'
+    SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+  end
+
+  SimpleCov.start do
+    enable_coverage :branch
+    add_filter '/spec/'
+    add_filter '/vendor/'
+  end
 end
 
 require 'movida_events'

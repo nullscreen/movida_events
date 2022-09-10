@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe MovidaEvents::Client do
   let(:title_event) do
     %(
@@ -85,4 +84,3 @@ RSpec.describe MovidaEvents::Client do
     expect(stub).to have_been_requested
   end
 end
-# rubocop:enable Metrics/BlockLength

@@ -1,6 +1,14 @@
 #!/usr/bin/env sh
 
-tag="$(git describe --abbrev=0)"
+set -e
+
+tag="$(git describe --abbrev=0 2>/dev/null || echo)"
+echo "Tag: ${tag}"
 tag="${tag#v}"
-gt=$(ruby -r ./lib/movida_events/version -e "puts Gem::Version.new(MovidaEvents::VERSION) >= Gem::Version.new('${tag}')")
-test "$gt" = true
+echo "Git Version: ${tag}"
+[ "$tag" = '' ] && exit 0
+gem_version="$(ruby -r ./lib/movida_events/version -e "puts MovidaEvents.version" | tail -n1)"
+echo "Gem Version: ${gem_version}"
+
+tag_gt_version="$(ruby -r ./lib/movida_events/version -e "puts MovidaEvents.version >= Gem::Version.new('${tag}')" | tail -n1)"
+test "$tag_gt_version" = true

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe MovidaEvents::Poller do
   let(:client) do
     instance_double(MovidaEvents::Client)
@@ -15,9 +14,10 @@ RSpec.describe MovidaEvents::Poller do
   it 'starts polling after the last position' do
     options[:newer_than] = nil
 
+    last_event = double('Almodovar::SingleResource', id: 1234) # rubocop:disable RSpec/VerifiedDoubles
     expect(client).to receive(:events)
       .with(no_args)
-      .and_return([OpenStruct.new(id: 1234)].to_enum)
+      .and_return([last_event].to_enum)
       .ordered
 
     expect(client).to receive(:events)
@@ -55,7 +55,7 @@ RSpec.describe MovidaEvents::Poller do
   it 'can set the allowed event types with an array' do
     options[:event_types] = %w[title_created title_updated]
 
-    expect(client).to receive(:events)
+    allow(client).to receive(:events)
       .with(hash_including(event_type: 'title_created,title_updated'))
       .and_return([].to_enum)
 
@@ -63,8 +63,9 @@ RSpec.describe MovidaEvents::Poller do
   end
 
   it 'skips sleeping if events were received' do
+    last_event = double('Almodovar::SingleResource', id: 4567) # rubocop:disable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 4567))
+      block.call(last_event)
     end.ordered
 
     expect(client).to receive(:events).ordered
@@ -74,8 +75,9 @@ RSpec.describe MovidaEvents::Poller do
   end
 
   it 'sends the events to poll block' do
+    last_event = double('Almodovar::SingleResource', id: 4567) # rubocop:disable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 4567))
+      block.call(last_event)
     end.ordered
 
     polled = false
@@ -84,12 +86,13 @@ RSpec.describe MovidaEvents::Poller do
       expect(event.id).to eq(4567)
     end
 
-    expect(polled).to eq(true)
+    expect(polled).to be(true)
   end
 
   it 'updates stats before first request' do
+    last_event = double('Almodovar::SingleResource', id: 4567) # rubocop:disable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 4567))
+      block.call(last_event)
     end.ordered
 
     polled = false
@@ -101,17 +104,24 @@ RSpec.describe MovidaEvents::Poller do
       expect(stats.request_events).to eq(1)
     end
 
-    expect(polled).to eq(true)
+    expect(polled).to be(true)
   end
 
   it 'updates stats for each event' do
+    # rubocop:disable RSpec/VerifiedDoubles
+    events = [
+      double('Almodovar::SingleResource', id: 100),
+      double('Almodovar::SingleResource', id: 200),
+      double('Almodovar::SingleResource', id: 300)
+    ]
+    # rubocop:enable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 100))
-      block.call(OpenStruct.new(id: 200))
+      block.call(events[0])
+      block.call(events[1])
     end.ordered
 
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 300))
+      block.call(events[2])
     end.ordered
 
     all_stats = []
@@ -138,13 +148,20 @@ RSpec.describe MovidaEvents::Poller do
   end
 
   it 'calls on_poll before each request' do
+    # rubocop:disable RSpec/VerifiedDoubles
+    events = [
+      double('Almodovar::SingleResource', id: 100),
+      double('Almodovar::SingleResource', id: 200),
+      double('Almodovar::SingleResource', id: 300)
+    ]
+    # rubocop:enable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 100))
+      block.call(events[0])
     end.ordered
 
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 200))
-      block.call(OpenStruct.new(id: 300))
+      block.call(events[1])
+      block.call(events[2])
     end.ordered
 
     expect(client).to receive(:events).ordered
@@ -160,19 +177,24 @@ RSpec.describe MovidaEvents::Poller do
   end
 
   it 'stops after processing events if stopped' do
+    # rubocop:disable RSpec/VerifiedDoubles
+    events = [
+      double('Almodovar::SingleResource', id: 100),
+      double('Almodovar::SingleResource', id: 200)
+    ]
+    # rubocop:enable RSpec/VerifiedDoubles
     expect(client).to receive(:events) do |_opts, &block|
-      block.call(OpenStruct.new(id: 100))
-      block.call(OpenStruct.new(id: 200))
+      block.call(events[0])
+      block.call(events[1])
     end
 
-    events = []
+    result_events = []
     poller.on_poll { poller.stop }
     poller.poll do |event|
-      expect(poller.stopped).to eq(true)
-      events << event
+      expect(poller.stopped).to be(true)
+      result_events << event
     end
 
-    expect(events.size).to eq(2)
+    expect(result_events.size).to eq(2)
   end
 end
-# rubocop:enable Metrics/BlockLength

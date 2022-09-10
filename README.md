@@ -1,10 +1,9 @@
 # MovidaEvents
 
 [![Gem Version](https://badge.fury.io/rb/movida_events.svg)](https://badge.fury.io/rb/movida_events)
-[![Build Status](https://travis-ci.org/nullscreen/movida_events.svg?branch=master)](https://travis-ci.org/nullscreen/movida_events)
-[![Code Climate](https://codeclimate.com/github/nullscreen/movida_events/badges/gpa.svg)](https://codeclimate.com/github/nullscreen/movida_events)
-[![Test Coverage](https://codeclimate.com/github/nullscreen/movida_events/badges/coverage.svg)](https://codeclimate.com/github/nullscreen/movida_events)
-[![Inline docs](http://inch-ci.org/github/nullscreen/movida_events.svg?branch=master)](http://inch-ci.org/github/nullscreen/movida_events)
+[![CI](https://github.com/nullscreen/movida_events/workflows/CI/badge.svg)](https://github.com/nullscreen/movida_events/actions?query=workflow%3ACI+branch%main)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c70b27a9f874f34b522c3b6589b1266)](https://www.codacy.com/gh/nullscreen/movida_events/dashboard)
+[![Code Coverage](https://codecov.io/gh/nullscreen/movida_events/branch/main/graph/badge.svg?token=24N4OJWF0Q)](https://codecov.io/gh/nullscreen/movida_events)
 
 A BeBanjo Movida event stream processor
 

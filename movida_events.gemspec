@@ -14,21 +14,21 @@ Gem::Specification.new do |spec|
   spec.summary = 'A BeBanjo Movida event stream processor'
   spec.homepage = 'https://github.com/nullscreen/movida_events'
 
-  spec.files = `git ls-files -z`
-    .split("\x0")
-    .reject { |f| f.match(%r{^spec/}) }
+  rubydoc = 'https://www.rubydoc.info/gems'
+  spec.metadata = {
+    'changelog_uri' => "#{spec.homepage}/blob/main/CHANGELOG.md",
+    'documentation_uri' => "#{rubydoc}/#{spec.name}/#{spec.version}",
+    'rubygems_mfa_required' => 'true'
+  }
+
+  spec.files = Dir['lib/**/*.rb', '*.md', '*.txt', '.yardopts']
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '>= 4.2', '< 6'
+  spec.required_ruby_version = '>= 2.3'
+
+  spec.add_dependency 'activesupport', '>= 4.2'
   spec.add_dependency 'almodovar', '~> 1.5'
 
-  spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency 'byebug', '~> 9.0'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'redcarpet', '~> 3.4'
-  spec.add_development_dependency 'rspec', '~> 3.4'
-  spec.add_development_dependency 'rubocop', '~> 0.61'
-  spec.add_development_dependency 'simplecov', '~> 0.12'
-  spec.add_development_dependency 'webmock', '~> 2.1'
-  spec.add_development_dependency 'yard', '~> 0.9.11'
+  spec.add_development_dependency 'rspec', '~> 3.10'
+  spec.add_development_dependency 'webmock', '~> 3.18'
 end
